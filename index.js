@@ -13,7 +13,7 @@ mongoose.connect("mongodb+srv://Sunzhou3:Sunzhou3@cluster0.ftmpt.mongodb.net/Cas
         useFindAndModify: false 
     }).then(() => console.log('DB Connected'));
 
-let port = 3000;
+let port = app.listen(process.env.PORT || 5000);
 // Send message for default URL
 app.use(bodyParser.json());
 app.use(cors());
