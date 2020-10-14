@@ -22,5 +22,5 @@ app.get('/', (req, res) => res.send('Hello World with Express'));
 app.use('/api', CaseRoute)
 
 app.listen(port, function () {
-     console.log("Running RestHub on port " + port);
+     console.log("Running Cases API on port " + port);
 });
