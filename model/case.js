@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const CaseSchema = new mongoose.Schema({
     state: { type: String },
     date: { type: String },
-    state: {type: String},
     confirmed: {type: Number},
     death: {type: Number},
     recorvered: {type: Number},
