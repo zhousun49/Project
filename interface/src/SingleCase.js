@@ -3,6 +3,7 @@ import {Table, Button} from "react-bootstrap"
 import {Redirect} from 'react-router-dom';
 import API from './API'
 import axios from 'axios'
+import {BarChart, Tooltip, XAxis, CartesianGrid, Bar} from 'recharts'
 
 class SingleCase extends React.Component {
     constructor(props) {
@@ -12,6 +13,7 @@ class SingleCase extends React.Component {
             date: props.match.params.date,
             case: [],
             count: 0,
+            chart: [],
             back: false,
             dat: false
         }
@@ -25,6 +27,19 @@ class SingleCase extends React.Component {
                 // console.log('Response', res)
                 this.setState({
                     case: res.data.case
+                })
+                let chart = []
+                for(let i in this.state.case[0]){
+                    const a = {}
+                    a['name'] = i;
+                    a[i] = this.state.case[0][i]
+                    if ((typeof a[i]) === "number" && a[i] !== 0){
+                        chart.push(a)
+                    }
+                  }
+                // console.log('chart', chart)
+                this.setState({
+                    chart: chart
                 })
             })
     }
@@ -57,6 +72,19 @@ class SingleCase extends React.Component {
         <div>
             <h1 style = {{textAlign:'center', padding:'10%'}}>Covid 19 Cases of {this.state.state} on {this.state.date}</h1>
         </div>
+        <div className="bar-chart-wrapper" style = {{padding: '2.5% 10%'}}>
+          <BarChart width={1200} height={400} data={this.state.chart}>
+            <XAxis dataKey="name" />
+            <Tooltip />
+            <CartesianGrid vertical={false} />
+            {
+                this.state.chart.map((ent, ind) => {
+                    console.log('entry', ent['name'])
+                    return <Bar yAxisId="b" dataKey={ent['name']} fill="#8884d8" />
+                })
+            }
+          </BarChart>
+        </div>
         <div style = {{padding: '0% 5%'}}>    
                     <Table>
                     <thead>
@@ -68,7 +96,7 @@ class SingleCase extends React.Component {
                         <th>Incident Rate</th>
                         <th>Mortality Rate</th>
                         <th>People Tested</th>
-                        <th>testing_rate</th>
+                        <th>Testing Rate</th>
                         </tr>
                     </thead>
                         <tbody>

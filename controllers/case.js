@@ -33,7 +33,7 @@ exports.cases_one = (req, res) => {
 exports.cases_one_state = (req, res) => {
     const state = req.params.state;
     // console.log(id)
-    Case.find({state: state})
+    Case.find({state: state}).sort( { date: 1 } )
         .then(result => [
             res.status(200).json({
                 count: result.length,
@@ -48,7 +48,7 @@ exports.cases_one_state = (req, res) => {
 exports.cases_one_date = (req, res) => {
     const date = req.params.date;
     console.log(date)
-    Case.find({date: date})
+    Case.find({date: date}).sort( { date: -1 } )
         .then(result => [
             res.status(200).json({
                 count: result.length,
