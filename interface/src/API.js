@@ -1,2 +1,2 @@
-const API = "http://localhost:5000/api"
+const API = "https://mysterious-falls-14257.herokuapp.com/api"
 export default API 

@@ -8,9 +8,14 @@ import {Navbar, Nav} from "react-bootstrap"
 import State from './State'
 import Date from './Date'
 import Home from './Home'
+import Country from "./Country"
 import SingleState from './SingleState'
 import SingleCase from './SingleCase'
 import SingleDate from "./SingleDate";
+import SingleCountry from './SingleCountry'
+import SingleDateCountry from './SingleDateCountry'
+import WorldDate from './WorldDate'
+import SingleWorldDate from './SingleWorldDate'
 
 export default function App() {
   return (
@@ -20,7 +25,9 @@ export default function App() {
         <Navbar.Brand href="/">Home</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="/states">State</Nav.Link>
-          <Nav.Link href="/dates">Date</Nav.Link>
+          <Nav.Link href="/dates">Date (US)</Nav.Link>
+          <Nav.Link href="/countries">Country</Nav.Link>
+          <Nav.Link href="/worlddates">Date (World)</Nav.Link>
         </Nav>
       </Navbar>
 
@@ -36,6 +43,15 @@ export default function App() {
             <Date />
           </Route>
           <Route exact path="/date/:date" component={SingleDate} />
+          <Route path="/countries">
+            <Country />
+          </Route>
+          <Route exact path="/country/:state" component={SingleCountry} />
+          <Route exact path="/country/:state/:date" component={SingleDateCountry} />
+          <Route path="/worlddates">
+            <WorldDate />
+          </Route>
+          <Route exact path="/worlddate/:date" component={SingleWorldDate} />
           <Route path="/">
             <Home />
           </Route>
