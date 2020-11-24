@@ -26,7 +26,11 @@ class State extends React.Component {
 
     render() {
         if(this.state.redirect) {
-            return <Redirect to = {{pathname: `/state/${this.state.state}`}}/>
+            if (this.state.state){
+                return <Redirect to = {{pathname: `/state/${this.state.state}`}}/>
+            }
+        return <Redirect to = {{pathname: `/state/all`}}/>
+
         }
       return (
           <div>

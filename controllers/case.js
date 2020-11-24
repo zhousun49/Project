@@ -1,7 +1,7 @@
 const Case = require('../model/case')
 
 exports.cases_all = (req, res) => {
-    Case.find()
+    Case.find().sort({state:1, date:1})
         .then(result => [
             res.status(200).json({
                 count: result.length,

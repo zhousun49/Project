@@ -26,7 +26,10 @@ class Country extends React.Component {
 
     render() {
         if(this.state.redirect) {
-            return <Redirect to = {{pathname: `/country/${this.state.state}`}}/>
+            if(this.state.state){
+                return <Redirect to = {{pathname: `/country/${this.state.state}`}}/>  
+            }
+            return <Redirect to = {{pathname: `/country/all`}}/>
         }
       return (
           <div>

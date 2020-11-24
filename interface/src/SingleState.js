@@ -24,7 +24,17 @@ class SingleState extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${API}/cases/state/${this.state.state}`)
+        if (this.state.state==="All"){
+            axios.get(`${API}/cases/`)
+            .then((res) =>{
+                // console.log('Response', res)
+                this.setState({
+                    case: res.data.cases
+                })
+            })
+        }
+        else{
+            axios.get(`${API}/cases/state/${this.state.state}`)
             .then((res) =>{
                 // console.log('Response', res)
                 this.setState({
@@ -32,6 +42,8 @@ class SingleState extends React.Component {
                     count: res.data.count
                 })
             })
+        }
+
     }
 
     render() {
@@ -39,6 +51,54 @@ class SingleState extends React.Component {
             return(
                 <Redirect to = {{pathname: `/states`}}/>
             )
+        }
+        if(this.state.state==='All'){
+            return (
+            <div>
+                <div>
+                    <h1 style = {{textAlign:'center', padding:'10%'}}>Trends of COVID cases for {this.state.state} in September</h1>
+                </div>
+                <div style = {{padding: '0% 5%'}}>    
+                    <Table>
+                    <thead>
+                        <tr>
+                        <th>Date</th>
+                        <th>State</th>
+                        <th>Active</th>
+                        <th>Confirmed</th>
+                        <th>Death</th>
+                        <th>Incident Rate</th>
+                        <th>Mortality Rate</th>
+                        <th>People Tested</th>
+                        <th>Testing Rate</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {this.state.case.map(( listValue, index ) => {
+                                return (
+                                    <tr key={index}>
+                                        <Link to={`/state/${listValue.state}/${listValue.date}`} key = {index} style = {{textDecoration: "none"}}>
+                                            <th>{listValue.date}</th>
+                                        </Link>
+                                            <th>{listValue.state}</th>
+                                            <th>{listValue.active}</th>
+                                            <th>{listValue.confirmed}</th>
+                                            <th>{listValue.death}</th>
+                                            <th>{listValue.incident_rate}</th>
+                                            <th>{listValue.mortality_rate}</th>
+                                            <th>{listValue.people_tested}</th>
+                                            <th>{listValue.testing_rate}</th>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </Table>
+                </div>
+                <div className="Link" style = {{textAlign:'center', padding: '3%'}}>
+                        <Button variant="primary" type="submit" active onClick= {this.backhandler}>Do Another Search on States</Button>
+                </div>
+            </div>
+        )
         }
         return (
             <div>
