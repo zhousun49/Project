@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const CaseRoute = require('./routes/case')
 
-mongoose.connect("mongodb+srv://Sunzhou3:Sunzhou3@cluster0.ftmpt.mongodb.net/Cases1?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://{$process.env.db_username}:${$process.env.db_password}@cluster0.ftmpt.mongodb.net/Cases1?retryWrites=true&w=majority", {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true, 
